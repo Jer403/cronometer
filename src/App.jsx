@@ -128,12 +128,14 @@ function App() {
                     );
                   })
                 ) : (
-                  <div key="no-notes">No hay ninguna nota</div>
+                  <div key="no-notes" style={{ fontSize: "24px" }}>
+                    No hay ninguna nota
+                  </div>
                 );
               }
             })
           ) : (
-            <div>Selecciona un projecto</div>
+            <div style={{ fontSize: "24px" }}>Selecciona un projecto</div>
           )}
         </main>
         <aside className="input-container">
