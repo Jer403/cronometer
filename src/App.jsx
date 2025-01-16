@@ -142,7 +142,7 @@ function App() {
           <p className="message-log" id="message-log"></p>
           <input
             type="text"
-            placeholder="¿En qué esta trabajando?"
+            placeholder="¿En qué estas trabajando?"
             className="counterInput"
             id="counterInput"
           />
