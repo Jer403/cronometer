@@ -41,9 +41,21 @@ function useCardReducer() {
       payload: product,
     });
 
+  const renameCardFromProject = (product) =>
+    dispatch({
+      type: "RENAME_CARD_FROM_PROJECT",
+      payload: product,
+    });
+
   const updateProjectTitle = (product) =>
     dispatch({
       type: "UPDATE_PROJECT_TITLE",
+      payload: product,
+    });
+
+  const repositionCardFromProject = (product) =>
+    dispatch({
+      type: "REPOSITION_CARD_FROM_PROJECT",
       payload: product,
     });
 
@@ -55,6 +67,8 @@ function useCardReducer() {
     removeCardFromProject,
     updateCardFromProject,
     updateProjectTitle,
+    renameCardFromProject,
+    repositionCardFromProject,
     currentProject,
     setCurrentProject,
     activated,
@@ -78,6 +92,8 @@ export function CardProvider({ children }) {
     removeCardFromProject,
     updateCardFromProject,
     updateProjectTitle,
+    renameCardFromProject,
+    repositionCardFromProject,
     currentProject,
     setCurrentProject,
     activated,
@@ -100,6 +116,8 @@ export function CardProvider({ children }) {
         removeCardFromProject,
         updateCardFromProject,
         updateProjectTitle,
+        renameCardFromProject,
+        repositionCardFromProject,
         currentProject,
         setCurrentProject,
         activated,

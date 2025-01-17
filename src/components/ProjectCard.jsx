@@ -1,28 +1,20 @@
 import { useState } from "react";
 import { EDIT_ICON, TRASH_ICON } from "../icons/icons";
-import { clearSelectedProject, handleToggleModal } from "../utils/utils";
+import { openModalWithPreset } from "../utils/utils";
 import { useCard } from "../hooks/useCard";
 
 // eslint-disable-next-line react/prop-types
-export function ProjectCard({ title, id, totalTime }) {
+export function ProjectCard({ title, id, totalTime, className }) {
   const [projectId] = useState(id);
   const { currentProject, setCurrentProject, deleteProject } = useCard();
 
   const handleProjectClick = async () => {
     setCurrentProject(projectId);
-    await clearSelectedProject();
-    document.getElementById(id).classList.add("selected");
   };
 
   const handleEditClick = (e) => {
     e.stopPropagation();
-    document.getElementById("projectInput").value = title;
-    const button = document.getElementById("projectButton");
-    button.textContent = "Editar";
-    button.dataset.type = "edit";
-    button.dataset.id = projectId;
-
-    handleToggleModal();
+    openModalWithPreset({ type: "edit", input: title, id: projectId });
   };
 
   const handleDeleteClick = (e) => {
@@ -34,7 +26,11 @@ export function ProjectCard({ title, id, totalTime }) {
 
   return (
     <>
-      <div className="project-card" onClick={handleProjectClick} id={id}>
+      <div
+        className={`project-card ${className}`}
+        onClick={handleProjectClick}
+        id={id}
+      >
         <p className="project-card-title">{title}</p>
         <p className="project-card-time">{totalTime}</p>
         <button

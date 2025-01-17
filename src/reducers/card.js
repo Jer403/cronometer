@@ -1,3 +1,5 @@
+import { moveElement } from "../utils/utils";
+
 export const cardInitialState = JSON.parse(localStorage.getItem("cards")) || [];
 
 export const updateLocalStorage = (state) => {
@@ -11,6 +13,7 @@ export const cardReducer = (state, action) => {
       const newState = [
         {
           ...actionPayload,
+          projectCards: [],
         },
         ...state,
       ];
@@ -57,11 +60,44 @@ export const cardReducer = (state, action) => {
       updateLocalStorage(newState);
       return newState;
     }
+    case "RENAME_CARD_FROM_PROJECT": {
+      const { projectId, id, title } = actionPayload;
+      const projectIndex = state.findIndex((item) => item.id == projectId);
+      const newState = structuredClone(state);
+      const cardIndex = newState[projectIndex].projectCards.findIndex(
+        (item) => item.id == id
+      );
+      newState[projectIndex].projectCards[cardIndex].title = title;
+      updateLocalStorage(newState);
+      return newState;
+    }
     case "UPDATE_PROJECT_TITLE": {
       const { projectId, title } = actionPayload;
       const projectIndex = state.findIndex((item) => item.id == projectId);
       const newState = structuredClone(state);
       newState[projectIndex].title = title;
+      updateLocalStorage(newState);
+      return newState;
+    }
+    case "REPOSITION_CARD_FROM_PROJECT": {
+      const { projectId, fromId, toId } = actionPayload;
+      const projectIndex = state.findIndex((item) => item.id == projectId);
+      const newState = structuredClone(state);
+      const fromCardIndex = newState[projectIndex].projectCards.findIndex(
+        (item) => item.id == fromId
+      );
+      const toCardIndex = newState[projectIndex].projectCards.findIndex(
+        (item) => item.id == toId
+      );
+
+      console.log(fromCardIndex, toCardIndex);
+
+      newState[projectIndex].projectCards = moveElement(
+        newState[projectIndex].projectCards,
+        fromCardIndex,
+        toCardIndex
+      );
+
       updateLocalStorage(newState);
       return newState;
     }

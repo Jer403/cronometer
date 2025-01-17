@@ -97,21 +97,6 @@ export const handleInterval = (initialTime, counterText) => {
   counterText.textContent = `${hours}:${minutes}:${segs}`;
 };
 
-export async function clearSelectedProject() {
-  return new Promise((resolve) => {
-    const selected = document.querySelectorAll(".selected");
-    selected.forEach((el) => {
-      el.classList.remove("selected");
-    });
-    resolve();
-  });
-}
-
-export async function selectProject(id) {
-  if (id == null) return;
-  document.getElementById(id).classList.add("selected");
-}
-
 export const handleToggleModal = () => {
   const modal = document.getElementById("modalContainer");
   if (modal.style.display == "none") {
@@ -119,6 +104,51 @@ export const handleToggleModal = () => {
   } else {
     modal.style.display = "none";
   }
+};
+
+export const openModalWithPreset = ({ type, input, id }) => {
+  const titleM = document.getElementById("projectTitle");
+  const inputM = document.getElementById("projectInput");
+  const buttonM = document.getElementById("projectButton");
+
+  switch (type) {
+    case "edit": {
+      titleM.textContent = "Editar proyecto";
+      inputM.value = input;
+      inputM.placeholder = "Nombre del projecto";
+      buttonM.textContent = "Editar";
+      buttonM.dataset.type = "edit";
+      buttonM.dataset.id = id;
+      break;
+    }
+    case "add": {
+      titleM.textContent = "Agregar nuevo proyecto";
+      inputM.value = "";
+      inputM.placeholder = "Nombre del projecto";
+      buttonM.textContent = "Agregar";
+      buttonM.dataset.type = "add";
+      break;
+    }
+    case "update": {
+      console.log("asd");
+      titleM.textContent = "Editar nota";
+      inputM.value = input;
+      inputM.placeholder = "Nombre de la nota";
+      buttonM.textContent = "Editar";
+      buttonM.dataset.type = "update";
+      buttonM.dataset.id = id;
+      break;
+    }
+  }
+
+  handleToggleModal();
+};
+
+export const moveElement = (array, fromIndex, toIndex) => {
+  const newArray = [...array];
+  const [movedElement] = newArray.splice(fromIndex, 1); // Remueve el elemento
+  newArray.splice(toIndex, 0, movedElement); // Lo inserta en la nueva posición
+  return newArray;
 };
 
 export function reduceArray() {

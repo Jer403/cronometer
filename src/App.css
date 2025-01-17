@@ -46,20 +46,50 @@ main {
 }
 
 .card {
-  width: 610px;
+  width: 584px;
   min-height: 100px;
   border: 1px solid #444;
   background-color: #343434;
   border-radius: 20px;
   position: relative;
-  padding: 10px 70px 10px 15px;
+  padding: 10px 70px 10px 55px;
+}
+
+.card-drag-pin {
+  left: 10px;
+  top: calc(50% - 40px);
+  border: 1px solid #444;
+  position: absolute;
+  padding: 0;
+  width: 20px;
+  height: 80px;
+  cursor: grab;
+  background: none;
+  background-color: #303030; /* Color de fondo */
+  background-size: 18px 20px; /* Tamaño del patrón */
+  background-image: radial-gradient(
+    circle,
+    rgba(138, 138, 138, 0.411) 1px,
+    transparent 2px
+  );
+}
+
+.card-drag-divider {
+  position: absolute;
+  width: 20px;
+  height: calc(100% + 2px);
+  border-right: 1px solid #555;
+  border-radius: 0 20px 20px 0;
+
+  top: -1px;
+  left: 20px;
 }
 
 .card-container {
   display: flex;
   gap: 10px;
   flex-direction: column;
-  width: 700px;
+  width: 710px;
   min-height: 120px;
   border: 1px solid #444;
   background-color: #222;
@@ -69,6 +99,45 @@ main {
   justify-content: flex-start;
 }
 
+.actual-project-label-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  top: -47px;
+}
+
+.size-6 {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.actual-project-label {
+  position: relative;
+  display: inline;
+  margin: 4px 0;
+  font-size: 28px;
+  padding: 0 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #222;
+  border-top: 1px solid #444;
+  border-right: 1px solid #444;
+  border-left: 1px solid #444;
+}
+
+.card-actions-divider {
+  position: absolute;
+  width: 20px;
+  height: calc(100% + 2px);
+  border-left: 1px solid #555;
+  border-radius: 20px 0 0 20px;
+
+  top: -1px;
+  right: 65px;
+}
+
 .close-btn {
   position: absolute;
   top: 10px;
@@ -76,16 +145,24 @@ main {
   background-color: #343434;
 }
 
-.resume-btn {
+.edit-btn {
   position: absolute;
   bottom: 10px;
   right: 10px;
   background-color: #343434;
 }
 
-.size-6 {
-  width: 1.4rem;
-  height: 1.4rem;
+.play-btn {
+  position: absolute;
+  display: flex;
+  top: calc(50% - 26.5px);
+  right: 95px;
+  background-color: #343434;
+}
+
+.play-btn svg {
+  width: 2rem;
+  height: 2rem;
 }
 
 .card-title {
@@ -173,6 +250,9 @@ main {
   width: calc(100% - 8px);
   padding: 5px 0 5px 8px;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .project-card {
@@ -184,6 +264,8 @@ main {
   padding: 5px;
   height: 50px;
   cursor: pointer;
+  outline: 1px solid #555555;
+  border-radius: 8px;
 }
 
 .project-card-title {
@@ -232,6 +314,6 @@ main {
 }
 
 .selected {
-  outline: 1px solid #ffda37;
+  outline: 1px solid #555555;
   border-radius: 8px;
 }

@@ -1,6 +1,6 @@
 import "./App.css";
 import "./Modal.css";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useCard } from "./hooks/useCard.jsx";
 import { useTimer } from "./hooks/useTimer.jsx";
 import { PLUS_ICON } from "./icons/icons.jsx";
@@ -9,30 +9,26 @@ import { Card } from "./components/Card.jsx";
 import {
   formatMillisToAdjustedHMS,
   handleToggleModal,
-  selectProject,
+  openModalWithPreset,
 } from "./utils/utils.js";
 
 function App() {
   const cardId = useRef(0);
 
-  const { cards, addNewProject, currentProject, updateProjectTitle } =
-    useCard();
+  const {
+    cards,
+    addNewProject,
+    currentProject,
+    updateProjectTitle,
+    renameCardFromProject,
+  } = useCard();
 
   const addProjectInput = useRef();
-
-  useEffect(() => {
-    selectProject(currentProject);
-  }, [currentProject, cards]);
 
   const { activated, timerClick } = useTimer();
 
   const handleModal = () => {
-    addProjectInput.value = "";
-    const button = document.getElementById("projectButton");
-    button.textContent = "Agregar";
-    button.dataset.id = "add";
-
-    handleToggleModal();
+    openModalWithPreset({ type: "add" });
   };
 
   const handleClickProject = () => {
@@ -41,20 +37,34 @@ function App() {
     }
     const button = document.getElementById("projectButton");
 
-    if (button.dataset.type == "edit") {
-      updateProjectTitle({
-        projectId: button.dataset.id,
-        title: addProjectInput.current.value,
-      });
-      addProjectInput.current.value = "";
-      handleToggleModal();
-    } else {
-      const id = Math.floor(Math.random() * 10000);
-      const title = addProjectInput.current.value;
-      addNewProject({ id, title, projectCards: [] });
-      addProjectInput.current.value = "";
-      handleToggleModal();
+    switch (button.dataset.type) {
+      case "edit": {
+        updateProjectTitle({
+          projectId: button.dataset.id,
+          title: addProjectInput.current.value,
+        });
+        addProjectInput.current.value = "";
+        break;
+      }
+      case "add": {
+        const id = Math.floor(Math.random() * 10000);
+        const title = addProjectInput.current.value;
+        addNewProject({ id, title });
+        addProjectInput.current.value = "";
+        break;
+      }
+      case "update": {
+        renameCardFromProject({
+          id: button.dataset.id,
+          projectId: currentProject,
+          title: addProjectInput.current.value,
+        });
+        addProjectInput.current.value = "";
+        break;
+      }
     }
+
+    handleToggleModal();
   };
 
   return (
@@ -65,7 +75,9 @@ function App() {
         style={{ display: "none" }}
       >
         <div className="modal">
-          <h2 className="modal-title">Proyecto</h2>
+          <h2 className="modal-title" id="projectTitle">
+            Proyecto
+          </h2>
           <input
             ref={addProjectInput}
             type="text"
@@ -95,6 +107,7 @@ function App() {
                 <ProjectCard
                   key={`r-${(cardId.current += 1)}`}
                   id={id}
+                  className={id == currentProject ? "selected" : ""}
                   title={title}
                   totalTime={formatMillisToAdjustedHMS(
                     projectCards.reduce(
@@ -113,6 +126,22 @@ function App() {
           </button>
         </aside>
         <main className="card-container">
+          <div
+            className="actual-project-label-container"
+            style={currentProject ? { display: "flex" } : { display: "none" }}
+          >
+            <p className="actual-project-label">
+              {currentProject ? (
+                cards.map((item) => {
+                  if (item.id == currentProject) {
+                    return item.title;
+                  }
+                })
+              ) : (
+                <></>
+              )}
+            </p>
+          </div>
           {currentProject ? (
             cards.map((item) => {
               if (item.id == currentProject) {
