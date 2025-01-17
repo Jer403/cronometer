@@ -20,8 +20,10 @@ export function ProjectCard({ title, id, totalTime, className }) {
   const handleDeleteClick = (e) => {
     e.stopPropagation();
     const confirmAsk = confirm("Quieres eliminar este projecto?");
-    if (currentProject == projectId) setCurrentProject(null);
-    if (confirmAsk) deleteProject({ projectId });
+    if (confirmAsk) {
+      if (currentProject == projectId) setCurrentProject(null);
+      deleteProject({ projectId });
+    }
   };
 
   return (
