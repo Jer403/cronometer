@@ -4,6 +4,7 @@ import {
   convertTimeInMillisToHMS,
   formatDateToTimePassed,
   openModalWithPreset,
+  showMessage,
 } from "../utils/utils.js";
 import { EDIT_ICON, PLAY_ICON, TRASH_ICON } from "../icons/icons.jsx";
 import { useTimer } from "../hooks/useTimer.jsx";
@@ -14,6 +15,7 @@ export function Card({ title, dateinfo, id }) {
     useCard();
   const [cardId] = useState(id);
   const { resumeClick } = useTimer();
+  const { activated } = useCard();
 
   const handleClick = () => {
     const confirmAsk = confirm("Quieres eliminar esta nota?");
@@ -22,6 +24,10 @@ export function Card({ title, dateinfo, id }) {
   };
 
   const handleResume = () => {
+    if (activated == true || activated == null) {
+      showMessage("Hay un cronometro activo!");
+      return;
+    }
     resumeClick({ time: dateinfo, id, title });
   };
 
