@@ -1,4 +1,4 @@
-import { moveElement } from "../utils/utils";
+import { moveElement } from "../utils/utils.js";
 
 export const cardInitialState = JSON.parse(localStorage.getItem("cards")) || [];
 

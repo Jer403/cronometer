@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { EDIT_ICON, TRASH_ICON } from "../icons/icons";
-import { openModalWithPreset } from "../utils/utils";
-import { useCard } from "../hooks/useCard";
+import { EDIT_ICON, TRASH_ICON } from "../icons/icons.jsx";
+import { openModalWithPreset, showMessage } from "../utils/utils.js";
+import { useCard } from "../hooks/useCard.jsx";
 
 // eslint-disable-next-line react/prop-types
 export function ProjectCard({ title, id, totalTime, className }) {
   const [projectId] = useState(id);
-  const { currentProject, setCurrentProject, deleteProject } = useCard();
+  const { currentProject, setCurrentProject, deleteProject, activated } =
+    useCard();
 
   const handleProjectClick = async () => {
+    if (activated == true || activated == null) {
+      showMessage("Hay un cronometro activo!");
+      return;
+    }
     setCurrentProject(projectId);
   };
 
@@ -35,6 +40,7 @@ export function ProjectCard({ title, id, totalTime, className }) {
       >
         <p className="project-card-title">{title}</p>
         <p className="project-card-time">{totalTime}</p>
+        <div className="project-card-divider"></div>
         <button
           className="project-card-btn project-card-edit"
           onClick={handleEditClick}

@@ -58,11 +58,14 @@ export function formatMillisToAdjustedHMS(time) {
 
 export function showMessage(text) {
   const messageLog = document.getElementById("message-log");
+  messageLog.classList.remove("shake");
+  messageLog.classList.add("shake");
   messageLog.textContent = text;
   messageLog.classList.add("red");
   setTimeout(() => {
     messageLog.textContent = "";
     messageLog.classList.remove("red");
+    messageLog.classList.remove("shake");
   }, 4000);
 }
 
@@ -81,21 +84,6 @@ export function counterText() {
 export function setcounterText(text) {
   document.getElementById("counterText").value = text;
 }
-
-export const handleInterval = (initialTime, counterText) => {
-  const actualDate = new Date();
-  const time = actualDate.getTime() - initialTime;
-
-  let hours = Math.floor((time % oneDay) / oneHour);
-  let minutes = Math.floor((time % oneHour) / oneMin);
-  let segs = Math.floor((time % oneMin) / 1000);
-
-  hours = formatNumber(hours);
-  minutes = formatNumber(minutes);
-  segs = formatNumber(segs);
-
-  counterText.textContent = `${hours}:${minutes}:${segs}`;
-};
 
 export const handleToggleModal = () => {
   const modal = document.getElementById("modalContainer");

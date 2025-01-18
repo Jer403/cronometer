@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useCard } from "../hooks/useCard";
+import { useCard } from "../hooks/useCard.jsx";
 import {
   convertTimeInMillisToHMS,
   formatDateToTimePassed,
   openModalWithPreset,
-} from "../utils/utils";
-import { EDIT_ICON, PLAY_ICON, TRASH_ICON } from "../icons/icons";
-import { useTimer } from "../hooks/useTimer";
+} from "../utils/utils.js";
+import { EDIT_ICON, PLAY_ICON, TRASH_ICON } from "../icons/icons.jsx";
+import { useTimer } from "../hooks/useTimer.jsx";
 
 // eslint-disable-next-line react/prop-types
 export function Card({ title, dateinfo, id }) {

@@ -22,10 +22,9 @@ function App() {
     updateProjectTitle,
     renameCardFromProject,
   } = useCard();
+  const { activated, timerClick } = useTimer();
 
   const addProjectInput = useRef();
-
-  const { activated, timerClick } = useTimer();
 
   const handleModal = () => {
     openModalWithPreset({ type: "add" });
@@ -178,7 +177,15 @@ function App() {
           <p className="counterText" id="counterText">
             00:00:00
           </p>
-          <button onClick={timerClick} className="activateBtn">
+          <button
+            onClick={timerClick}
+            className="activateBtn"
+            style={
+              activated == true || activated == null
+                ? { background: "#4F46E5" }
+                : {}
+            }
+          >
             {activated == true || activated == null ? "Detener" : "Iniciar"}
           </button>
         </aside>

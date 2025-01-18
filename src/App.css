@@ -268,6 +268,17 @@ main {
   border-radius: 8px;
 }
 
+.project-card-divider {
+  position: absolute;
+  width: 20px;
+  height: calc(100% + 2px);
+  border-left: 1px solid #555555;
+  border-radius: 8px 0 0 8px;
+
+  top: -1px;
+  right: 54px;
+}
+
 .project-card-title {
   font-size: 20px;
   margin: 0;
@@ -281,7 +292,7 @@ main {
   font-size: 20px;
   margin: 0;
   position: absolute;
-  right: 75px;
+  right: 85px;
   background-color: #242424;
 }
 
@@ -316,4 +327,29 @@ main {
 .selected {
   outline: 1px solid #555555;
   border-radius: 8px;
+}
+
+.shake {
+  animation: ErrorMessage 0.2s linear;
+}
+
+@keyframes ErrorMessage {
+  0% {
+    transform: translateX(0px);
+  }
+  20% {
+    transform: translateX(15px);
+  }
+  40% {
+    transform: translateX(-15px);
+  }
+  60% {
+    transform: translateX(15px);
+  }
+  80% {
+    transform: translateX(-15px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
 }
