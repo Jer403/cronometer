@@ -247,7 +247,7 @@ main {
 
 .input-container-left {
   display: flex;
-  position: absolute;
+  position: fixed;
   left: -100%;
   flex-direction: column;
   height: auto;
