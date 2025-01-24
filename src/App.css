@@ -4,6 +4,10 @@
   text-align: center;
 }
 
+body {
+  background-color: #1a1a1a;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -189,7 +193,7 @@ main {
 }
 
 .counterInput {
-  width: 284px;
+  width: calc(100% - 58px);
   height: 32px;
   margin-top: 10px;
   border-radius: 8px;
@@ -204,7 +208,7 @@ main {
 }
 
 .input-container {
-  width: 370px;
+  width: 80%;
   height: 250px;
   border: 1px solid #444;
   border-radius: 8px;
@@ -256,6 +260,7 @@ main {
 }
 
 .input-container-right {
+  background-color: #222;
   position: absolute;
   top: 100px;
 }
@@ -377,6 +382,21 @@ main {
   animation: ErrorMessage 0.2s linear;
 }
 
+@media (min-width: 768px) {
+  .card-container {
+    width: 60%;
+  }
+  .input-container {
+    width: 60%;
+  }
+}
+
+@media (max-width: 1248px) {
+  .opened {
+    left: 0;
+  }
+}
+
 @media (min-width: 1248px) {
   .main {
     flex-direction: row;
@@ -394,6 +414,14 @@ main {
     max-width: 800px;
   }
 
+  .input-container {
+    width: 370px;
+  }
+
+  .counterInput {
+    width: 284px;
+  }
+
   .input-container-right {
     position: relative;
     top: 10px;
@@ -404,17 +432,6 @@ main {
   }
 }
 
-@media (min-width: 768px) {
-  .card-container {
-    width: 60%;
-  }
-}
-
-@media (max-width: 1248px) {
-  .opened {
-    left: 0;
-  }
-}
 @keyframes ErrorMessage {
   0% {
     transform: translateX(0px);
