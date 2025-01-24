@@ -1,9 +1,9 @@
 import "./App.css";
 import "./Modal.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useCard } from "./hooks/useCard.jsx";
 import { useTimer } from "./hooks/useTimer.jsx";
-import { PLUS_ICON } from "./icons/icons.jsx";
+import { BARS_ICON, PLUS_ICON, X_ICON } from "./icons/icons.jsx";
 import { ProjectCard } from "./components/ProjectCard.jsx";
 import { Card } from "./components/Card.jsx";
 import {
@@ -23,6 +23,7 @@ function App() {
     renameCardFromProject,
   } = useCard();
   const { activated, timerClick } = useTimer();
+  const [projectsOpen, setProjectsOpen] = useState(false);
 
   const addProjectInput = useRef();
 
@@ -97,8 +98,15 @@ function App() {
           </button>
         </div>
       </div>
-      <main>
-        <aside className="input-container input-container-left">
+      <button className="projects-toggle" onClick={() => setProjectsOpen(true)}>
+        <BARS_ICON></BARS_ICON>
+      </button>
+      <main className="main">
+        <aside
+          className={`input-container input-container-left ${
+            projectsOpen ? "opened" : ""
+          }`}
+        >
           <p className="top-input-container-text">PROYECTOS</p>
           <div className="projects">
             {cards.length > 0 ? (
@@ -120,6 +128,12 @@ function App() {
               <div>No tienes proyectos</div>
             )}
           </div>
+          <button
+            className="toggle-projects add-project"
+            onClick={() => setProjectsOpen(false)}
+          >
+            <X_ICON></X_ICON>
+          </button>
           <button className="close-btn add-project" onClick={handleModal}>
             <PLUS_ICON></PLUS_ICON>
           </button>
@@ -166,7 +180,7 @@ function App() {
             <div style={{ fontSize: "24px" }}>Selecciona un projecto</div>
           )}
         </main>
-        <aside className="input-container">
+        <aside className="input-container  input-container-right">
           <p className="message-log" id="message-log"></p>
           <input
             type="text"
