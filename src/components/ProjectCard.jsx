@@ -3,8 +3,18 @@ import { EDIT_ICON, TRASH_ICON } from "../icons/icons.jsx";
 import { openModalWithPreset, showMessage } from "../utils/utils.js";
 import { useCard } from "../hooks/useCard.jsx";
 
-// eslint-disable-next-line react/prop-types
-export function ProjectCard({ title, id, totalTime, className }) {
+export function ProjectCard({
+  // eslint-disable-next-line react/prop-types
+  title,
+  // eslint-disable-next-line react/prop-types
+  id,
+  // eslint-disable-next-line react/prop-types
+  totalTime,
+  // eslint-disable-next-line react/prop-types
+  className,
+  // eslint-disable-next-line react/prop-types
+  setProjectsOpen,
+}) {
   const [projectId] = useState(id);
   const { currentProject, setCurrentProject, deleteProject, activated } =
     useCard();
@@ -15,6 +25,7 @@ export function ProjectCard({ title, id, totalTime, className }) {
       return;
     }
     setCurrentProject(projectId);
+    setProjectsOpen(false);
   };
 
   const handleEditClick = (e) => {

@@ -116,6 +116,7 @@ function App() {
                   id={id}
                   className={id == currentProject ? "selected" : ""}
                   title={title}
+                  setProjectsOpen={setProjectsOpen}
                   totalTime={formatMillisToAdjustedHMS(
                     projectCards.reduce(
                       (sum, item) => sum + Number(item.dateinfo),
